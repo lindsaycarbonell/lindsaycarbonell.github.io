@@ -1,3 +1,13 @@
+// When ready...
+window.addEventListener("load",function() {
+	// Set a timeout...
+	setTimeout(function(){
+		// Hide the address bar!
+		window.scrollTo(0, 1);
+	}, 0);
+});
+
+
 //
 // A helper function to toggle a help tip
 // about how to hide Safari address bar when it's visible
