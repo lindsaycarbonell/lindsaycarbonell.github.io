@@ -5,6 +5,26 @@ var projection = 0;
 var manualRotation = quat.create(),
     degtorad = Math.PI / 180;  // Degree-to-Radian conversion
 
+//globals for iOS video hack. Will be slimed down before production.
+var FrameRates = {
+    film: 24,
+    NTSC : 29.97,
+    NTSC_Film: 23.98,
+    NTSC_HD : 59.94,
+    PAL: 25,
+    PAL_HD: 50,
+    web: 30,
+    high: 60
+};
+
+//only for iOS video hack
+debug = true;
+
+
+
+
+
+
 (function(global) {
   'use strict';
 
@@ -21,7 +41,7 @@ var manualRotation = quat.create(),
     },
 
     manualRotateRate: new Float32Array([0, 0, 0]),  // Vector, camera-relative
-      
+
     create: function() {
       playButton.addEventListener('click', function() {
         controls.playPause();
@@ -108,6 +128,10 @@ var manualRotation = quat.create(),
       // });
     },
 
+
+
+
+
     enableKeyControls: function() {
       function key(event, sign) {
         var control = controls.manualControls[String.fromCharCode(event.keyCode).toLowerCase()];
@@ -118,6 +142,10 @@ var manualRotation = quat.create(),
         control.active = (sign === 1);
         controls.manualRotateRate[control.index] += sign * control.sign;
       }
+
+
+
+
 
       function onkey(event) {
         switch (String.fromCharCode(event.charCode)) {
@@ -144,16 +172,54 @@ var manualRotation = quat.create(),
           break;
         }
       }
-        
+
+
+
+
 
       document.addEventListener('keydown', function(event) { key(event, 1); },
               false);
       document.addEventListener('keyup', function(event) { key(event, -1); },
               false);
       window.addEventListener('keypress', onkey, true);
-      document.addEventListener('onmousemove',onMouseMove(event));
+      //document.addEventListener('mousemove' ,onMouseMove(event));
+
+
+//BROKEN mouse control of video. SK 10/06/15
+      // document.addEventListener('mousemove', function(event){
+      //   console.log("mouse move");
+      //       this._onPointerDownPointerX = event.clientX;
+      //       this._onPointerDownPointerY = -event.clientY;
+      //
+      //       this._onPointerDownLon = this._lon;
+      //       this._onPointerDownLat = this._lat;
+      //
+      //       var x, y;
+      //
+      //       if(this.options.clickAndDrag) {
+      //           if(this._mouseDown) {
+      //               x = event.pageX - this._dragStart.x;
+      //               y = event.pageY - this._dragStart.y;
+      //               this._dragStart.x = event.pageX;
+      //               this._dragStart.y = event.pageY;
+      //               this._lon += x;
+      //               this._lat -= y;
+      //           }
+      //       } else {
+      //           x = event.pageX - $(this.element).find('canvas').offset().left;
+      //           y = event.pageY - $(this.element).find('canvas').offset().top;
+      //           this._lon = ( x / $(this.element).find('canvas').width() ) * 430 - 225;
+      //           this._lat = ( y / $(this.element).find('canvas').height() ) * -180 + 90;
+      //       }
+      //
+      //   });
+
+
+
+
+
     },
-      
+
 
     /**
      * Video Commands
@@ -331,37 +397,9 @@ var manualRotation = quat.create(),
       window.messageL.classList.remove('hidden');
       window.messageR.classList.remove('hidden');
     },
-      
-    //added from valiant360
-    onMouseMove: function() {
-        console.log("mouse move");
-            this._onPointerDownPointerX = event.clientX;
-            this._onPointerDownPointerY = -event.clientY;
 
-            this._onPointerDownLon = this._lon;
-            this._onPointerDownLat = this._lat;
 
-            var x, y;
 
-            if(this.options.clickAndDrag) {
-                if(this._mouseDown) {
-                    x = event.pageX - this._dragStart.x;
-                    y = event.pageY - this._dragStart.y;
-                    this._dragStart.x = event.pageX;
-                    this._dragStart.y = event.pageY;
-                    this._lon += x;
-                    this._lat -= y;
-                }
-            } else {
-                x = event.pageX - $(this.element).find('canvas').offset().left;
-                y = event.pageY - $(this.element).find('canvas').offset().top;
-                this._lon = ( x / $(this.element).find('canvas').width() ) * 430 - 225;
-                this._lat = ( y / $(this.element).find('canvas').height() ) * -180 + 90;
-            }
-            
-        } 
-
-      
   };
 
   global.controls = controls;

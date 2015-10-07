@@ -19,15 +19,84 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>eleVR Web Player</title>
+  <title>Tarheel Web Player</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-touch-fullscreen" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <link rel="icon" sizes="196x196" href="elelogo-square.png">
-    
+  <link rel="icon" sizes="196x196" href="http://www.unc.edu/wp-content/themes/unc-sites-base-theme/images/ss_img_unc_favicon.ico">
+
+<!-- for iOS video hack -->
+<!--
+<style>
+    canvas {
+        background-color: black;
+        width: 640px;
+        height: 320px;
+    }
+
+/*            video::-webkit-media-controls {
+        display:none !important;
+    }*/
+
+/*            video {
+        display: none;
+        visibility: hidden;
+    }*/
+
+    /* inline video styles */
+    .inlineVideoContainer {
+        position: relative;
+        display: block;
+    }
+
+    .inlineVideoPoster {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        border: 1px dashed red;
+
+    }
+
+    .inlineVideoPlayer {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+    }
+
+    button {
+        position: absolute;
+        color: white;
+        font-size: 18px;
+        border-radius: 10px;
+        padding: 10px;
+        background-color: #3ac;
+        border: none;
+    }
+
+    .inlineVideoPlayButton {
+        top: 40%;
+        left: 50%;
+        margin-left: -100px;
+    }
+
+    .inlineVideoPauseButton {
+        top: 40%;
+        left: 59%;
+        margin-left: -100px;
+    }
+
+
+
+</style> -->
+
+
+
 <!--hides browser in landscape mode, Safari iOS-->
     <script type="text/javascript">
     // When ready...
@@ -112,17 +181,29 @@ window.addEventListener("load",function() {
 <link rel="stylesheet" href="css/font-awesome.css">
 <link rel="stylesheet" href="css/bootstrap.min.css"><!--for tooltip-->
 <link rel="stylesheet" href="css/elevr-player.css">
-    
+
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="js/three.min.js" type="text/javascript"></script><!--to hack controls-->
 <script src="js/bootstrap.min.js" type="text/javascript"></script><!--for tooltip-->
 <script src="lib/gl-matrix.js" type="text/javascript"></script>
 <script src="lib/util.js" type="text/javascript"></script>
-<script src="js/controls.js" type="text/javascript"></script>
+
 <script src="js/player-webgl.js" type="text/javascript"></script>
 <script src="js/webvr.js" type="text/javascript"></script>
 <script src="js/phonevr.js" type="text/javascript"></script>
 <script src="js/elevr-player.js" type="text/javascript"></script>
 <script src="js/tooltip.js" type="text/javascript"></script><!--tooltip to cover mobile browser-->
+
+<!-- for video iOS hack -->
+<!-- <script src="js/requestAnimationFrame.js"></script>
+<script src="js/inline-video.js"></script> -->
+
+
+
+
+<!-- majority of custom video work here -->
+<script src="js/controls.js" type="text/javascript"></script>
+
 
 </head>
 
@@ -147,7 +228,7 @@ window.addEventListener("load",function() {
     <canvas id="glcanvas">
       Your browser doesn't appear to support the HTML5 <code>&lt;canvas&gt;</code> element.
     </canvas>
-    <video class="hidden" preload="auto" id="video" loop="true" webkit-playsinline crossOrigin="anonymous">
+    <video class="hidden" preload="auto" id="video" loop="true" poster="poster.png" playsinline webkit-playsinline crossOrigin="anonymous">
       <source src="0diving_sm.mp4" type="video/mp4">
       <!-- <source src="therelaxatron.webm" type="video/webm"> -->
     </video>
@@ -156,13 +237,15 @@ window.addEventListener("load",function() {
           <a id="play-pause" class="fa fa-play icon" title="Play"></a>
 
 
+
+
           <input type="range" id="seek-bar" value="0">
 
           <a id="loop" class="fa fa-chain-broken icon" title="Stop Looping"></a>
 
           <a id="mute" class="fa fa-volume-up icon" title="Mute"></a>
 
-          
+
 
           <!-- <a id="select-local-file" class="fa fa-folder-open icon rfloat" title="Select File"></a>
 
@@ -182,6 +265,15 @@ window.addEventListener("load",function() {
         </div>
 
         <script>runEleVRPlayer();</script>
+      
+      <script>
+          //take away controls when switching to landscape
+      jQuery( window ).on( "orientationchange", function( event ) {
+          if(orientation == 'landscape'){
+            var location = document.location.href + '/?controls=0';
+          }
+      } )
+      </script>
       </div>
 
     </body></html>
