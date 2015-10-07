@@ -273,16 +273,20 @@ window.addEventListener("load",function() {
       <script>
           //take away controls when switching to landscape
       jQuery( window ).on( "orientationchange", function( event ) {
-          var location = document.location.href + '?play=1';
+          var location = document.location.href + '?controls=0';
           //alert("orientation change");
           //portrait
           if(window.orientation == 0){
-            alert("portrait");
+            alert("flip your phone!");
             
           }
           else{
-            alert("landscape");
-            document.location.href = location;
+            //alert("landscape");
+            //document.location.href = location;
+              setTimeout(function(){
+		          // Hide the address bar!
+		          window.scrollTo(0, 1);
+	           }, 0);
           }
       } )
       </script>
