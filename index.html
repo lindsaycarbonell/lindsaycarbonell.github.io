@@ -28,8 +28,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="icon" sizes="196x196" href="http://www.unc.edu/wp-content/themes/unc-sites-base-theme/images/ss_img_unc_favicon.ico">
 
-<!-- for iOS video hack -->
-<!--
+
 <style>
     canvas {
         background-color: black;
@@ -93,7 +92,7 @@
 
 
 
-</style> -->
+</style>
 
 
 
@@ -193,10 +192,8 @@ window.addEventListener("load",function() {
 
 
 <!-- for video iOS hack -->
-<!--
 <script src="js/requestAnimationFrame.js"></script>
 <script src="js/inline-video.js"></script>
--->
 
 
 
@@ -228,7 +225,7 @@ window.addEventListener("load",function() {
     <canvas id="glcanvas">
       Your browser doesn't appear to support the HTML5 <code>&lt;canvas&gt;</code> element.
     </canvas>
-    <video class="hidden" preload="auto" id="video" loop="true" crossOrigin="anonymous">
+    <video class="hidden" preload="auto" id="video" loop="true" crossOrigin="anonymous" poster="poster.png" playsinline webkit-playsinline>
       <source src="0diving_sm.mp4" type="video/mp4">
       <!-- <source src="therelaxatron.webm" type="video/webm"> -->
     </video>
