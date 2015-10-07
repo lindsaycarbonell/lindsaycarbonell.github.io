@@ -192,8 +192,10 @@ window.addEventListener("load",function() {
 
 
 <!-- for video iOS hack -->
+<!--
 <script src="js/requestAnimationFrame.js"></script>
 <script src="js/inline-video.js"></script>
+-->
 
 
 
@@ -225,7 +227,7 @@ window.addEventListener("load",function() {
     <canvas id="glcanvas">
       Your browser doesn't appear to support the HTML5 <code>&lt;canvas&gt;</code> element.
     </canvas>
-    <video class="hidden" preload="auto" id="video" loop="true" crossOrigin="anonymous" poster="poster.png" playsinline webkit-playsinline>
+    <video class="hidden" preload="auto" id="video" loop="true" crossOrigin="anonymous">
       <source src="0diving_sm.mp4" type="video/mp4">
       <!-- <source src="therelaxatron.webm" type="video/webm"> -->
     </video>
