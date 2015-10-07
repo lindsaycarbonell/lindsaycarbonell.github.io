@@ -192,10 +192,10 @@ window.addEventListener("load",function() {
 
 
 <!-- for video iOS hack -->
-<!--
+
 <script src="js/requestAnimationFrame.js"></script>
 <script src="js/inline-video.js"></script>
--->
+
 
 
 
@@ -227,7 +227,7 @@ window.addEventListener("load",function() {
     <canvas id="glcanvas">
       Your browser doesn't appear to support the HTML5 <code>&lt;canvas&gt;</code> element.
     </canvas>
-    <video class="hidden" preload="auto" id="video" loop="true" crossOrigin="anonymous">
+    <video class="hidden" preload="auto" id="video" loop="true" crossOrigin="anonymous" playsinline webkit-playsinline poster="poster.png">
       <source src="0diving_sm.mp4" type="video/mp4">
       <!-- <source src="therelaxatron.webm" type="video/webm"> -->
     </video>
@@ -284,7 +284,7 @@ window.addEventListener("load",function() {
             //alert("landscape");
             //document.location.href = location;
               setTimeout(function(){
-		          // Hide the address bar!
+		          // Hide the address bar! works only on iOS Safari
 		          window.scrollTo(0, 1);
 	           }, 0);
           }
