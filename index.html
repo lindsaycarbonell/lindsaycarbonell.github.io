@@ -56,7 +56,7 @@
         top: 0;
         left: 0;
 
-        border: 1px dashed red;
+        border: 1px dashed green;
 
     }
 
@@ -273,7 +273,7 @@ window.addEventListener("load",function() {
       <script>
           //take away controls when switching to landscape
       jQuery( window ).on( "orientationchange", function( event ) {
-          var location = document.location.href + '?autoplay=1';
+          var location = document.location.href + '?play=1';
           //alert("orientation change");
           //portrait
           if(window.orientation == 0){
