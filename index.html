@@ -271,8 +271,9 @@ window.addEventListener("load",function() {
       <script>
           //take away controls when switching to landscape
       jQuery( window ).on( "orientationchange", function( event ) {
-          if(orientation == "landscape"){
-            alert('landscape');
+          alert("orientation change");
+          if(event.orientation == "landscape"){
+            alert("landscape");
             var location = document.location.href + '/?controls=0';
           }
       } )
