@@ -271,9 +271,10 @@ window.addEventListener("load",function() {
       <script>
           //take away controls when switching to landscape
       jQuery( window ).on( "orientationchange", function( event ) {
-            $(".inlineVideoPoster").css("border-color", "blue");
+          if(orientation == "landscape"){
+            alert('landscape');
             var location = document.location.href + '/?controls=0';
-          
+          }
       } )
       </script>
       </div>
