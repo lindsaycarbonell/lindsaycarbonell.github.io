@@ -1,58 +1,93 @@
-tarheel-VR Web Player
-================
+Full Tilt
+==========
 
-The tarheel-VR player lets you watch 360 flat and stereo video on your Oculus Rift or Android device with VR headset (Cardboard, Durovis Dive, etc.) from a web browser. It is written with js, html5, and webGL.
+#### Standalone device orientation + motion detection, normalization and conversion library ####
 
-tarheel-VR Web Player works with the native browser support currently being implemented by [Firefox](http://blog.bitops.com/blog/2014/06/26/first-steps-for-vr-on-the-web/) and [Chromium](https://www.google.com/chrome/browser/desktop/).
+Full Tilt is a Promise-based JavaScript library that detects support for device orientation and device motion sensor data and then normalizes that data across different platforms for web applications to use within their own 'world' or 'game' based frames.
 
+Full Tilt provides developers with three complementary device orientation sensor output representations – screen-adjusted Quaternions, Rotation Matrixes and Euler Angles – that can be used to create 2D or 3D experiences in web browsers that work consistently across all mobile web platforms and in all screen orientations.
 
+This library also provides all the functions necessary to convert between different device orientation types. Orientation angle conversion is possible via this API from/to Device Orientation and Motion API-derived [Euler Angles](http://en.wikipedia.org/wiki/Euler_angles), [Rotation Matrices](http://en.wikipedia.org/wiki/Rotation_matrix) and/or [Quaternions](http://en.wikipedia.org/wiki/Quaternion) (i.e. from raw sensor inputs that supply intrinsic Tait-Bryan angles of type Z-X'-Y').
 
-Videos shown in the player can be rotated using keyboard controls  (a/d, w/s, and q/e), as well as by the Oculus Rift if you are running an experimental webVR browser. You may be able to decrease video judder by setting your Oculus Display refresh rate to 60 Hz (the browser refreshes at 60 Hz and the slower mismatch can cause judder).
+* [Installation](#installation)
+* [Usage](#usage)
+* [Documentation](https://github.com/richtr/Full-Tilt/wiki/Full-Tilt-API-Documentation)
 
-#### [Live Demo](http://ask-media.org/client_portal/vrdemo/) ####
+## Installation ##
 
-The following table documents the keyboard controls currently available.
+This library is available on [Bower](http://bower.io/) as **fulltilt**:
 
-| Key | Control           |
-|:-----:|-------------|
-| p   | play/pause |
-| l   | toggle looping |
-| f   | full screen webVR mode (with barrel distortion) |
-| g   | regular full screen mode (less lag) |
-| w   | up |
-| a   | left |
-| s   | down |
-| d   | right |
-| q   | rotate left |
-| e   | rotate right |
+```bash
+$> bower install fulltilt
+```
 
-This implementation of a the eleVR Player was developed at [UNC Chapel Hill jSchool](http://mj.unc.edu/) by [Steven King](http://steventking.com) and Lindsay Carbonell. This project builds off of [eleVR](http://eleVR.com). eleVR is a project of the Communications Design Group and is supported by SAP. The contributors to the eleVR project are [@hawksley](https://github.com/hawksley) and [@amluto](https://github.com/amluto).
+You will also need a Promise polyfill for older browsers.
 
+```bash
+$> bower install es6-promise
+```
 
+Alternatively, you can manually add [fulltilt.js](https://github.com/richtr/Full-Tilt/blob/master/dist/fulltilt.js) (or the [minified version of fulltilt.js](https://github.com/richtr/Full-Tilt/blob/master/dist/fulltilt.min.js)) to your project.
 
-### Support ###
-Using keyboard rotation controls, the player works on standard Firefox and Chrome on Windows, Mac, and Linux. It also runs on Safari (if webgl is enabled). I haven't tested it on other browsers.
+## Usage ##
 
-Using Oculus headset controls, the player works on the experimental webVR builds of [Firefox](http://blog.bitops.com/blog/2014/06/26/first-steps-for-vr-on-the-web/) and [Chrome](https://drive.google.com/folderview?id=0BzudLt22BqGRbW9WTHMtOWMzNjQ&usp=sharing#list).
+You can request device orientation and motion sensor changes by requesting a Promise object with either [`FULLTILT.getDeviceOrientation()`](https://github.com/richtr/Full-Tilt/wiki/Full-Tilt-API-Documentation#fulltiltgetdeviceorientation--options--) or [`FULLTILT.getDeviceMotion()`](https://github.com/richtr/Full-Tilt/wiki/Full-Tilt-API-Documentation#fulltiltgetdevicemotion--options--).
 
-Using device orientation controls, it has historically worked on Chrome on Android, however Chrome recently hacked a fix to a security issue by marking all video as cross-origin. For more details on the current status on mobile devices, please check out the issues tab.
+If the requested sensor is supported on the current device then this Promise object will resolve to [`FULLTILT.DeviceOrientation`](https://github.com/richtr/Full-Tilt/wiki/Full-Tilt-API-Documentation#fulltiltdeviceorientation) and [`FULLTILT.DeviceMotion`](https://github.com/richtr/Full-Tilt/wiki/Full-Tilt-API-Documentation#fulltiltdevicemotion) as appropriate. This returned object can then be used to interact with the device's sensors via the FULLTILT APIs.
 
+If the requested sensor is not supported on the current device then this Promise object will reject with a simple error message string. In such circumstances it is recommended to provide manual fallback controls so users can still interact with your web page appropriately.
 
-## Known Issues ##
+Here is a quick example of how to use Full Tilt:
 
-You may run into issues playing video if your browser does not support HTML5 video of the type that you are using. For example, Firefox on Mac does not support mp4 video, but does support webm. You can check what video types are supported for your browser here: http://en.wikipedia.org/wiki/HTML5_video#Browser_support
+```html
+<script>
+  // Create a new FULLTILT Promise for e.g. *compass*-based deviceorientation data
+  var promise = new FULLTILT.getDeviceOrientation({ 'type': 'world' });
 
-###Oculus movement isn't being recognized###
-Make sure that you are using an experimental webVR version of the browser. If it still isn't being recognized, you can try restarting the browser and plugging/unplugging your device.
+  // FULLTILT.DeviceOrientation instance placeholder
+  var deviceOrientation;
 
-## UNC Future Work ##
-The following is a short subset of planned future work on the UNC implementation.
-- Add LeapMotion support for Gesture control.
-- Add Menu for selecting different experiences.
+  promise
+    .then(function(controller) {
+      // Store the returned FULLTILT.DeviceOrientation object
+      deviceOrientation = controller;
+    })
+    .catch(function(message) {
+      console.error(message);
 
+      // Optionally set up fallback controls...
+      // initManualControls();
+    });
 
-## 3rd party libraries ##
-The following assets are used by the eleVR Player:
+  (function draw() {
 
-- glMatrix - Similar to MIT License - http://glmatrix.net/
-- Font Awesome - MIT License - http://fortawesome.github.io/Font-Awesome/
+    // If we have a valid FULLTILT.DeviceOrientation object then use it
+    if (deviceOrientation) {
+
+      // Obtain the *screen-adjusted* normalized device rotation
+      // as Quaternion, Rotation Matrix and Euler Angles objects
+      // from our FULLTILT.DeviceOrientation object
+      var quaternion = deviceOrientation.getScreenAdjustedQuaternion();
+      var matrix = deviceOrientation.getScreenAdjustedMatrix();
+      var euler = deviceOrientation.getScreenAdjustedEuler();
+
+      // Do something with our quaternion, matrix, euler objects...
+      console.debug(quaternion);
+      console.debug(matrix);
+      console.debug(euler);
+
+    }
+
+    // Execute function on each browser animation frame
+    requestAnimationFrame(draw);
+
+  })();
+</script>
+```
+
+Full [API documentation](https://github.com/richtr/Full-Tilt/wiki/Full-Tilt-API-Documentation) is available on the project wiki and [usage examples](https://github.com/richtr/Full-Tilt/tree/master/examples) are also provided.
+
+## References ##
+
+* [Full Tilt API Documentation](https://github.com/richtr/Full-Tilt/wiki/Full-Tilt-API-Documentation)
+* [W3C DeviceOrientation Events Spec](http://w3c.github.io/deviceorientation/spec-source-orientation.html)
