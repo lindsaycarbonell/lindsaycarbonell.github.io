@@ -76,7 +76,7 @@
           var tiltLR = eventData.gamma;
 
           // beta is the front-to-back tilt in degrees, where front is positive
-          //var tiltFB = eventData.beta;
+          var tiltFB = eventData.beta;
 
           // alpha is the compass direction the device is facing in degrees
           var dir = eventData.alpha
@@ -91,7 +91,7 @@
 
     function deviceOrientationHandler(tiltLR, tiltFB, dir) {
       document.getElementById("doTiltLR").innerHTML = Math.round(tiltLR);
-      //document.getElementById("doTiltFB").innerHTML = Math.round(tiltFB);
+      document.getElementById("doTiltFB").innerHTML = Math.round(tiltFB);
       document.getElementById("doDirection").innerHTML = Math.round(dir);
 
       // Apply the transform to the image
