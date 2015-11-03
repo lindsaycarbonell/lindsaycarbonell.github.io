@@ -82,8 +82,7 @@
           var dir = eventData.alpha
 
           // call our orientation event handler
-          //deviceOrientationHandler(tiltLR, tiltFB, dir);
-          deviceOrientationHandler(tiltFB, dir);
+          deviceOrientationHandler(tiltLR, tiltFB, dir);
           }, false);
       } else {
         document.getElementById("doEvent").innerHTML = "Not supported on your device or browser.  Sorry."
@@ -93,7 +92,7 @@
     function deviceOrientationHandler(tiltLR, tiltFB, dir) {
       document.getElementById("doTiltLR").innerHTML = Math.round(tiltLR);
       //document.getElementById("doTiltFB").innerHTML = Math.round(tiltFB);
-      //document.getElementById("doDirection").innerHTML = Math.round(dir);
+      document.getElementById("doDirection").innerHTML = Math.round(dir);
 
       // Apply the transform to the image
       var logo = document.getElementById("imgLogo");
