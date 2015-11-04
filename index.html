@@ -99,11 +99,21 @@
       logo.style.MozTransform = "rotate("+ tiltLR +"deg)";
       logo.style.transform = "rotate("+ tiltLR +"deg) rotate3d(1,0,0, "+ (tiltFB*-1)+"deg)";
 
-      if(dir <=214 && dir>=118){
-        alert("tilting right!");
-      }else if (dir >= 214 && dir<300){
-        alert("tilting left!");
+      var alertedLeft = localStorage.getItem('alert') || '';
+      if(alertedLeft != 'tilt left'){
+        if(dir <=214 && dir>=118){
+          alert("tilt left!");
+        }
       }
+
+      var alertedRight = localStorage.getItem('alert') || '';
+      if(alertedRighty != 'tilt right'){
+        else if (dir >= 214 && dir<300){
+          alert("tilt right!");
+        }
+      }
+
+
     }
 
 
