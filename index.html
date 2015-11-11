@@ -60,11 +60,13 @@
 
   <div class="container" style="-webkit-perspective: 300; perspective: 300;">
     <img src="pikachu.png" id="imgLogo" class="logo">
+    <div id="add"></div>
   </div>
 
   <script type="text/javascript">
     init();
     var count = 0;
+    var html = "";
 
     function init() {
       if (window.DeviceOrientationEvent) {
@@ -99,18 +101,28 @@
       logo.style.MozTransform = "rotate("+ tiltLR +"deg)";
       logo.style.transform = "rotate("+ tiltLR +"deg) rotate3d(1,0,0, "+ (tiltFB*-1)+"deg)";
 
-      var alert = localStorage.getItem('alert') || '';
-      if(alert != 'tilt left'){
-        if(dir >=253){
-          alert("tilt left");
-        }
+      if(dir >= 253){
+        html+='<p>tilt left</p>';
+        $(html).appendTo('#add');
       }
 
-      if(alert != 'tilt right'){
-        if (dir >= 214 && dir<300){
-          alert("tilt right");
-        }
+      if(dir >=214 && dir>300){
+        html+='<p>tilt right</p>'
+        $(html).appendTo('#add');
       }
+
+      // var alert = localStorage.getItem('alert') || '';
+      // if(alert != 'tilt left'){
+      //   if(dir >=253){
+      //     alert("tilt left");
+      //   }
+      // }
+      //
+      // if(alert != 'tilt right'){
+      //   if (dir >= 214 && dir<300){
+      //     alert("tilt right");
+      //   }
+      // }
 
 
     }
@@ -121,11 +133,11 @@
     //var rotation = "rotate("+ tiltLR +"deg) rotate3d(0,1,0, "+ (tiltLR*-1)+"deg) rotate3d(1,0,0, "+ (tiltFB*-1)+"deg)";
 
 
-    var alerted = localStorage.getItem('alerted') || '';
-    if (alerted != 'yes') {
-     alert("My alert.");
-     localStorage.setItem('alerted','yes');
-    }
+    // var alerted = localStorage.getItem('alerted') || '';
+    // if (alerted != 'yes') {
+    //  alert("My alert.");
+    //  localStorage.setItem('alerted','yes');
+    // }
 
   </script>
 
