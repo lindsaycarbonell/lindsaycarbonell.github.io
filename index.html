@@ -92,18 +92,33 @@
       }
     }
 
-    var last_gamma=0;
+    var last_gamma;
     function deviceOrientationHandler(tiltLR, tiltFB, dir) {
       var gamma = Math.round(tiltLR);
 
-      if (gamma < 88 && gamma > -88){
-        if (last_gamma < 0 && gamma > 0){
+      if (gamma < 0){
+        gamma = Math.abs(gamma);
+      } else {
+        gamma = 180-gamma;
+      }
+
+      if (typeof last_gamma != "undefined"){
+        if (gamma - last_gamma > 20){
           $('<p>tilt right</p>').appendTo('#add');
-        } else if (last_gamma > 0 && gamma < 0){
+        } else if (gamma - last_gamma < -20){
           $('<p>tilt left</p>').appendTo('#add');
         }
-        last_gamma = gamma;
       }
+      last_gamma = gamma;
+
+      // if (gamma < 88 && gamma > -88){
+      //   if (last_gamma < 0 && gamma > 0){
+      //     $('<p>tilt right</p>').appendTo('#add');
+      //   } else if (last_gamma > 0 && gamma < 0){
+      //     $('<p>tilt left</p>').appendTo('#add');
+      //   }
+      //   last_gamma = gamma;
+      // }
 
 
       document.getElementById("doTiltLR").innerHTML = Math.round(tiltLR);
