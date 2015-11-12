@@ -87,14 +87,17 @@
           // call our orientation event handler
           deviceOrientationHandler(tiltLR, tiltFB, dir);
           }, false);
+
+          setInterval(checkGamma, 600);
       } else {
         document.getElementById("doEvent").innerHTML = "Not supported on your device or browser.  Sorry."
       }
     }
 
+
     var last_gamma;
-    function deviceOrientationHandler(tiltLR, tiltFB, dir) {
-      var gamma = Math.round(tiltLR);
+
+    function checkGamma(){
 
       if (gamma < 0){
         gamma = Math.abs(gamma);
@@ -110,6 +113,13 @@
         }
       }
       last_gamma = gamma;
+
+    }
+
+    function deviceOrientationHandler(tiltLR, tiltFB, dir) {
+      gamma = Math.round(tiltLR);
+
+
 
       // if (gamma < 88 && gamma > -88){
       //   if (last_gamma < 0 && gamma > 0){
