@@ -96,7 +96,7 @@
     function deviceOrientationHandler(tiltLR, tiltFB, dir) {
       var gamma = Math.round(tiltLR);
 
-      if (gamma < 85 && gamma > -85){
+      if (gamma < 88 && gamma > -88){
         if (last_gamma < 0 && gamma > 0){
           $('<p>tilt right</p>').appendTo('#add');
         } else if (last_gamma > 0 && gamma < 0){
