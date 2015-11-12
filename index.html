@@ -88,7 +88,7 @@
           deviceOrientationHandler(tiltLR, tiltFB, dir);
           }, false);
 
-          setInterval(checkGamma, 600);
+        //  setInterval(checkGamma, 600);
       } else {
         document.getElementById("doEvent").innerHTML = "Not supported on your device or browser.  Sorry."
       }
@@ -98,12 +98,6 @@
     var last_gamma;
 
     function checkGamma(){
-
-      if (gamma < 0){
-        gamma = Math.abs(gamma);
-      } else {
-        gamma = 180-gamma;
-      }
 
       if (typeof last_gamma != "undefined"){
         if (gamma - last_gamma > 10){
@@ -117,8 +111,19 @@
     }
 
     function deviceOrientationHandler(tiltLR, tiltFB, dir) {
-      gamma = Math.round(tiltLR);
+      var gamma = Math.round(tiltLR);
 
+      if (gamma < 0){
+        gamma = Math.abs(gamma);
+      } else {
+        gamma = 180-gamma;
+      }
+
+      if (gamma > 110){
+        $('<p>tilt right</p>').appendTo('#add');
+      } else if (gamma < 70){
+        $('<p>tilt left</p>').appendTo('#add');
+      }
 
 
       // if (gamma < 88 && gamma > -88){
