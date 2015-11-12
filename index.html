@@ -103,9 +103,9 @@
       }
 
       if (typeof last_gamma != "undefined"){
-        if (gamma - last_gamma > 20){
+        if (gamma - last_gamma > 10){
           $('<p>tilt right</p>').appendTo('#add');
-        } else if (gamma - last_gamma < -20){
+        } else if (gamma - last_gamma < -10){
           $('<p>tilt left</p>').appendTo('#add');
         }
       }
