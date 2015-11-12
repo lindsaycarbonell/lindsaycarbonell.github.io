@@ -95,11 +95,14 @@
     var last_gamma=0;
     function deviceOrientationHandler(tiltLR, tiltFB, dir) {
       var gamma = Math.round(tiltLR);
-      if (last_gamma < 0 && gamma > 0){
-        //alert('gamma change');
-        $('<p>tilt left</p>').appendTo('#add');
+
+      if (gamma < 85 && gamma > -85){
+        if (last_gamma < 0 && gamma > 0){
+          $('<p>tilt left</p>').appendTo('#add');
+        }
+        last_gamma = gamma;
       }
-      last_gamma = gamma;
+
 
       document.getElementById("doTiltLR").innerHTML = Math.round(tiltLR);
       document.getElementById("doTiltFB").innerHTML = Math.round(tiltFB);
