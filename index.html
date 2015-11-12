@@ -88,6 +88,7 @@
           deviceOrientationHandler(tiltLR, tiltFB, dir);
           }, false);
 
+          can_tilt = true;
       } else {
         document.getElementById("doEvent").innerHTML = "Not supported on your device or browser.  Sorry."
       }
@@ -103,17 +104,17 @@
         gamma = 180-gamma;
       }
 
-if (can_tilt){
-      if (gamma > 110){
-        $('<p>tilt right</p>').appendTo('#add');
-	can_tilt = false;
-	setTimeout(function(){can_tilt = true;}, 1000);
-      } else if (gamma < 70){
-        $('<p>tilt left</p>').appendTo('#add');
-	can_tilt = false;
-	setTimeout(function(){can_tilt = true;}, 1000);
-      }
-}
+    if (can_tilt){
+          if (gamma > 110){
+            $('<p>tilt right</p>').appendTo('#add');
+            can_tilt = false;
+            setTimeout(function(){can_tilt = true;}, 1000);
+          } else if (gamma < 70){
+            $('<p>tilt left</p>').appendTo('#add');
+        can_tilt = false;
+        setTimeout(function(){can_tilt = true;}, 1000);
+          }
+    }
 
       document.getElementById("doTiltLR").innerHTML = Math.round(tiltLR);
       document.getElementById("doTiltFB").innerHTML = Math.round(tiltFB);
