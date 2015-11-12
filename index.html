@@ -92,7 +92,7 @@
       }
     }
 
-    var last_gamma;
+    var last_gamma=0;
     function deviceOrientationHandler(tiltLR, tiltFB, dir) {
       var gamma = Math.round(tiltFB);
       if (last_gamma <0 && gamma>0){
