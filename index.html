@@ -69,6 +69,7 @@
     init();
     var count = 0;
     var html = "";
+    var can_tilt = true;
 
     function init() {
       if (window.DeviceOrientationEvent) {
@@ -88,7 +89,6 @@
           deviceOrientationHandler(tiltLR, tiltFB, dir);
           }, false);
 
-          can_tilt = true;
       } else {
         document.getElementById("doEvent").innerHTML = "Not supported on your device or browser.  Sorry."
       }
@@ -111,8 +111,8 @@
             setTimeout(function(){can_tilt = true;}, 1000);
           } else if (gamma < 70){
             $('<p>tilt left</p>').appendTo('#add');
-        can_tilt = false;
-        setTimeout(function(){can_tilt = true;}, 1000);
+            can_tilt = false;
+            setTimeout(function(){can_tilt = true;}, 1000);
           }
     }
 
