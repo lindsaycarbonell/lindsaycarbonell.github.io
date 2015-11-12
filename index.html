@@ -98,6 +98,8 @@
 
       if (gamma < 85 && gamma > -85){
         if (last_gamma < 0 && gamma > 0){
+          $('<p>tilt right</p>').appendTo('#add');
+        } else if (last_gamma > 0 && gamma < 0){
           $('<p>tilt left</p>').appendTo('#add');
         }
         last_gamma = gamma;
