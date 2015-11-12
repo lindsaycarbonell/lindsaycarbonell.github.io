@@ -92,7 +92,14 @@
       }
     }
 
+    var last_gamma;
     function deviceOrientationHandler(tiltLR, tiltFB, dir) {
+      var gamma = Math.round(tiltFB);
+      if (last_gamma <0 && gamma>0){
+        $('<p>tilt left</p>').appendTo('#add');
+      }
+      last_gamma = gamma;
+
       document.getElementById("doTiltLR").innerHTML = Math.round(tiltLR);
       document.getElementById("doTiltFB").innerHTML = Math.round(tiltFB);
       document.getElementById("doDirection").innerHTML = Math.round(dir);
@@ -103,7 +110,10 @@
       logo.style.MozTransform = "rotate("+ tiltLR +"deg)";
       logo.style.transform = "rotate("+ tiltLR +"deg) rotate3d(1,0,0, "+ (tiltFB*-1)+"deg)";
 
+      // setInterval(function(){
       //
+      // }, 100);
+
       // if(dir >= 253){
       //   //alert('tilt left');
       //   html+='<p>tilt left</p>';
