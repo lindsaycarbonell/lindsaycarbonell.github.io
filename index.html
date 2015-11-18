@@ -1,177 +1,211 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
   <meta charset="UTF-8">
-  <title></title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-  <style type="text/css">
-    body {
-      font-family: sans-serif;
-    }
 
-    .main {
-    border: 1px solid black;
-    box-shadow: 10px 10px 5px #888;
-    border-radius: 12px;
-    padding: 20px;
-    background-color: #ddd;
-    margin: 25px;
-    width: 450px;
-    margin-left:auto;
-    margin-right:auto;
-  }
+    <style>
+/*
+        .slider-img{
+            max-height:80vh!important;
+            width:auto;
+        }
+*/
+    </style>
 
-  .logo {
-    width:275px;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-    padding: 15px;
-  }
+<link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
+<!--news quiz css-->
+<!-- <link href="css/quiz-style.css" rel="stylesheet" media="screen" type="text/css"> -->
 
-  .container {
-    -webkit-perspective: 300; perspective: 300;
-  }
-  </style>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.0.min.js"></script>
+
+
+    <!-- Important Owl stylesheet -->
+<link rel="stylesheet" href="css/owl.carousel.css">
+
+<!-- Default Theme -->
+<link rel="stylesheet" href="css/owl.theme.css">
+
+<!-- Include js plugin -->
+<script src="js/owl.carousel.js"></script>
+
+<!--my stylesheet-->
+<link rel="stylesheet" href="css/styles.css" type="text/css" />
+
+
+<script type="text/javascript" charset="utf-8">
+    //owl carousel
+    $(document).ready(function() {
+
+        $("#owl-slider").owlCarousel({
+            navigation : true, // Show next and prev buttons
+            slideSpeed : 300,
+            paginationSpeed : 400,
+            singleItem:true,
+            autoHeight : true
+        });
+
+    });
+</script>
+
+<!--google maps API-->
+<script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9MognY8F7eqdKlh-jIWkGMD5drrg_OJM"></script>
+
 
 </head>
+
 <body>
-  <div class="main">
-      <h2>Device Orientation</h2>
-      <table>
-        <tr>
-          <td>Event Supported</td>
-          <td id="doEvent"></td>
-        </tr>
-        <tr>
-          <td>Tilt Left/Right [gamma]</td>
-          <td id="doTiltLR"></td>
-        </tr>
-        <tr>
-          <td>Tilt Front/Back [beta]</td>
-          <td id="doTiltFB"></td>
-        </tr>
-        <tr>
-          <td>Direction [alpha]</td>
-          <td id="doDirection"></td>
-        </tr>
-      </table>
-  </div>
 
-  <div class="container" style="-webkit-perspective: 300; perspective: 300;">
-    <img src="pikachu.png" id="imgLogo" class="logo">
+  <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-sm-8 col-sm-offset-2">
+            <!-- <div id="map-canvas" style="height:20vh;"></div> -->
+        </div>
+        </div>
+      </div>
 
-  </div>
 
-  <div id="add">why can't i see this</div>
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-sm-8 col-sm-offset-2">
+  <div id="owl-slider" class="owl-carousel">
 
-  <script type="text/javascript">
-    init();
-    var count = 0;
-    var html = "";
-    var can_tilt = true;
+    <!--TITLE SLIDE 1/11-->
+    <div>
+      <img src="assets/phoenix.jpg" />
+      <div class="slide-text">
+          <p>Top 10 Most Polluted Cities</p>
+      </div>
+    </div>
 
-    function init() {
-      if (window.DeviceOrientationEvent) {
-        document.getElementById("doEvent").innerHTML = "DeviceOrientation";
-        // Listen for the deviceorientation event and handle the raw data
-        window.addEventListener('deviceorientation', function(eventData) {
-          // gamma is the left-to-right tilt in degrees, where right is positive
-          var tiltLR = eventData.gamma;
+    <!--STEP 2/11, phoenix-->
+    <div>
+      <img class="slider-img" src="assets/phoenix.jpg" />
+    </div>
 
-          // beta is the front-to-back tilt in degrees, where front is positive
-          var tiltFB = eventData.beta;
+    <!--STEP 3/11, lasvegas-->
+    <div>
+      <img class="slider-img" src="assets/lasvegas.jpg" />
+    </div>
 
-          // alpha is the compass direction the device is facing in degrees
-          var dir = eventData.alpha
+    <!--STEP 4/11, modesto-->
+    <div>
+      <img class="slider-img" src="assets/modesto.jpg" />
+    </div>
 
-          // call our orientation event handler
-          deviceOrientationHandler(tiltLR, tiltFB, dir);
-          }, false);
+    <!--STEP 5/11, dallas-->
+    <div>
+      <img class="slider-img" src="assets/dallas.jpg" />
+    </div>
 
-      } else {
-        document.getElementById("doEvent").innerHTML = "Not supported on your device or browser.  Sorry."
-      }
+    <!--STEP 6/11, houston-->
+    <div>
+      <img class="slider-img" src="assets/houston.jpg" />
+    </div>
+
+    <!--STEP 7/11, sacramento-->
+    <div>
+      <img class="slider-img" src="assets/sacramento.jpg" />
+    </div>
+
+    <!--STEP 8/11, fresno-->
+    <div>
+      <img class="slider-img" src="assets/fresno.jpg" />
+    </div>
+
+    <!--STEP 9/11, bakersfield-->
+    <div>
+      <img class="slider-img" src="assets/bakersfield.jpg" />
+    </div>
+
+    <!--STEP 10/11, visalia-->
+    <div>
+      <img class="slider-img" src="assets/visalia.jpg" />
+    </div>
+
+    <!--STEP 11/11, losangeles-->
+    <div>
+      <img class="slider-img" src="assets/losangeles.jpg" />
+    </div>
+
+</div><!--END SLIDER-->
+
+</div><!--end column-->
+
+</div><!--end row-->
+</div><!--end container-->
+ <script src="js/map.js"></script>
+
+
+    <div id="map-canvas"></div>
+      </div>
+
+<script>
+<script type="text/javascript">
+  init();
+  var count = 0;
+  var html = "";
+  var can_tilt = true;
+
+  function init() {
+    if (window.DeviceOrientationEvent) {
+      document.getElementById("doEvent").innerHTML = "DeviceOrientation";
+      // Listen for the deviceorientation event and handle the raw data
+      window.addEventListener('deviceorientation', function(eventData) {
+        // gamma is the left-to-right tilt in degrees, where right is positive
+        var tiltLR = eventData.gamma;
+
+        // beta is the front-to-back tilt in degrees, where front is positive
+        var tiltFB = eventData.beta;
+
+        // alpha is the compass direction the device is facing in degrees
+        var dir = eventData.alpha
+
+        // call our orientation event handler
+        deviceOrientationHandler(tiltLR, tiltFB, dir);
+        }, false);
+
+    } else {
+      document.getElementById("doEvent").innerHTML = "Not supported on your device or browser.  Sorry."
+    }
+  }
+
+
+  function deviceOrientationHandler(tiltLR, tiltFB, dir) {
+    var gamma = Math.round(tiltLR);
+
+    if (gamma < 0){
+      gamma = Math.abs(gamma);
+    } else {
+      gamma = 180-gamma;
     }
 
+  if (can_tilt){
+        if (gamma > 110){
+          console.log("tilt right");
+          can_tilt = false;
+          setTimeout(function(){can_tilt = true;}, 1000);
+        } else if (gamma < 70){
+          console.log("tilt left");
+          can_tilt = false;
+          setTimeout(function(){can_tilt = true;}, 1000);
+        }
+  }
 
-    function deviceOrientationHandler(tiltLR, tiltFB, dir) {
-      var gamma = Math.round(tiltLR);
+    document.getElementById("doTiltLR").innerHTML = Math.round(tiltLR);
+    document.getElementById("doTiltFB").innerHTML = Math.round(tiltFB);
+    document.getElementById("doDirection").innerHTML = Math.round(dir);
 
-      if (gamma < 0){
-        gamma = Math.abs(gamma);
-      } else {
-        gamma = 180-gamma;
-      }
-
-    if (can_tilt){
-          if (gamma > 110){
-            $('<p>tilt right</p>').appendTo('#add');
-            can_tilt = false;
-            setTimeout(function(){can_tilt = true;}, 1000);
-          } else if (gamma < 70){
-            $('<p>tilt left</p>').appendTo('#add');
-            can_tilt = false;
-            setTimeout(function(){can_tilt = true;}, 1000);
-          }
-    }
-
-      document.getElementById("doTiltLR").innerHTML = Math.round(tiltLR);
-      document.getElementById("doTiltFB").innerHTML = Math.round(tiltFB);
-      document.getElementById("doDirection").innerHTML = Math.round(dir);
-
-      // Apply the transform to the image
-      var logo = document.getElementById("imgLogo");
-      logo.style.webkitTransform = "rotate("+ tiltLR +"deg) rotate3d(1,0,0, "+ (tiltFB*-1)+"deg)";
-      logo.style.MozTransform = "rotate("+ tiltLR +"deg)";
-      logo.style.transform = "rotate("+ tiltLR +"deg) rotate3d(1,0,0, "+ (tiltFB*-1)+"deg)";
-
-      // setInterval(function(){
-      //
-      // }, 100);
-
-      // if(dir >= 253){
-      //   //alert('tilt left');
-      //   html+='<p>tilt left</p>';
-      //   $(html).appendTo('#add');
-      // }
-      //
-      // if(dir >=214 && dir<300){
-      //   html+='<p>tilt right</p>'
-      //   $(html).appendTo('#add');
-      // }
-
-      // var alert = localStorage.getItem('alert') || '';
-      // if(alert != 'tilt left'){
-      //   if(dir >=253){
-      //     alert("tilt left");
-      //   }
-      // }
-      //
-      // if(alert != 'tilt right'){
-      //   if (dir >= 214 && dir<300){
-      //     alert("tilt right");
-      //   }
-      // }
-
-
-    }
-
-
-    // Some other fun rotations to try...
-    //var rotation = "rotate3d(0,1,0, "+ (tiltLR*-1)+"deg) rotate3d(1,0,0, "+ (tiltFB*-1)+"deg)";
-    //var rotation = "rotate("+ tiltLR +"deg) rotate3d(0,1,0, "+ (tiltLR*-1)+"deg) rotate3d(1,0,0, "+ (tiltFB*-1)+"deg)";
-
-
-    // var alerted = localStorage.getItem('alerted') || '';
-    // if (alerted != 'yes') {
-    //  alert("My alert.");
-    //  localStorage.setItem('alerted','yes');
-    // }
-
-  </script>
+    // Apply the transform to the image
+    var logo = document.getElementById("imgLogo");
+    logo.style.webkitTransform = "rotate("+ tiltLR +"deg) rotate3d(1,0,0, "+ (tiltFB*-1)+"deg)";
+    logo.style.MozTransform = "rotate("+ tiltLR +"deg)";
+    logo.style.transform = "rotate("+ tiltLR +"deg) rotate3d(1,0,0, "+ (tiltFB*-1)+"deg)";
 
 
 
+  }
+
+</script>
 </body>
+
 </html>
