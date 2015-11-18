@@ -203,10 +203,12 @@
   if (can_tilt){
         if (gamma > 110){
           $('<p>tilt right</p>').appendTo('.main');
+          owl.trigger('owl.next');
           can_tilt = false;
           setTimeout(function(){can_tilt = true;}, 1000);
         } else if (gamma < 70){
         $('<p>tilt left</p>').appendTo('.main');
+          owl.trigger('owl.prev');
           can_tilt = false;
           setTimeout(function(){can_tilt = true;}, 1000);
         }
