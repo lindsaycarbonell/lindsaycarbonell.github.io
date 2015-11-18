@@ -202,11 +202,11 @@
 
   if (can_tilt){
         if (gamma > 110){
-          alert("tilt right");
+          $('<p>tilt right</p>').appendTo('.main');
           can_tilt = false;
           setTimeout(function(){can_tilt = true;}, 1000);
         } else if (gamma < 70){
-          alert("tilt left");
+        $('<p>tilt left</p>').appendTo('.main');
           can_tilt = false;
           setTimeout(function(){can_tilt = true;}, 1000);
         }
