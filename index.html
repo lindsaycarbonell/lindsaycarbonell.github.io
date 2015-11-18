@@ -181,11 +181,11 @@
 
   if (can_tilt){
         if (gamma > 110){
-          console.log("tilt right");
+          alert("tilt right");
           can_tilt = false;
           setTimeout(function(){can_tilt = true;}, 1000);
         } else if (gamma < 70){
-          console.log("tilt left");
+          alert("tilt left");
           can_tilt = false;
           setTimeout(function(){can_tilt = true;}, 1000);
         }
