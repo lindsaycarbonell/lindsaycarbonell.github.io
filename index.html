@@ -1,238 +1,36 @@
-<!DOCTYPE html>
+
 <html>
 <head>
-  <meta charset="UTF-8">
-
-    <style>
-/*
-        .slider-img{
-            max-height:80vh!important;
-            width:auto;
-        }
-*/
-    </style>
-
-<link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
-<!--news quiz css-->
-<!-- <link href="css/quiz-style.css" rel="stylesheet" media="screen" type="text/css"> -->
-
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.0.min.js"></script>
-
-
-    <!-- Important Owl stylesheet -->
-<link rel="stylesheet" href="css/owl.carousel.css">
-
-<!-- Default Theme -->
-<link rel="stylesheet" href="css/owl.theme.css">
-
-<!-- Include js plugin -->
-<script src="js/owl.carousel.js"></script>
-
-<!--my stylesheet-->
-<link rel="stylesheet" href="css/styles.css" type="text/css" />
-
-
-<script type="text/javascript" charset="utf-8">
-    //owl carousel
-    $(document).ready(function() {
-
-        $("#owl-slider").owlCarousel({
-            navigation : true, // Show next and prev buttons
-            slideSpeed : 300,
-            paginationSpeed : 400,
-            singleItem:true,
-            autoHeight : true
-        });
-
-    });
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+<script src="tilt-1.0.min.js"></script>
+<script>
+$(function() {
+	$('#div1').tilt();
+});
 </script>
-
-<!--google maps API-->
-<script type="text/javascript"
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9MognY8F7eqdKlh-jIWkGMD5drrg_OJM"></script>
-
-
+<style>
+#div1 {
+	width: 300px;
+	height: 300px;
+	overflow: scroll;
+	border: 1px solid #000;
+	white-space: nowrap;
+}
+</style>
 </head>
-
 <body>
-
-  <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-sm-8 col-sm-offset-2">
-            <!-- <div id="map-canvas" style="height:20vh;"></div> -->
-        </div>
-        </div>
-      </div>
-
-
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-sm-8 col-sm-offset-2">
-  <div id="owl-slider" class="owl-carousel">
-
-    <!--TITLE SLIDE 1/11-->
-    <div>
-      <img src="assets/phoenix.jpg" />
-      <div class="slide-text">
-          <p>Top 10 Most Polluted Cities</p>
-      </div>
-    </div>
-
-    <!--STEP 2/11, phoenix-->
-    <div>
-      <img class="slider-img" src="assets/phoenix.jpg" />
-    </div>
-
-    <!--STEP 3/11, lasvegas-->
-    <div>
-      <img class="slider-img" src="assets/lasvegas.jpg" />
-    </div>
-
-    <!--STEP 4/11, modesto-->
-    <div>
-      <img class="slider-img" src="assets/modesto.jpg" />
-    </div>
-
-    <!--STEP 5/11, dallas-->
-    <div>
-      <img class="slider-img" src="assets/dallas.jpg" />
-    </div>
-
-    <!--STEP 6/11, houston-->
-    <div>
-      <img class="slider-img" src="assets/houston.jpg" />
-    </div>
-
-    <!--STEP 7/11, sacramento-->
-    <div>
-      <img class="slider-img" src="assets/sacramento.jpg" />
-    </div>
-
-    <!--STEP 8/11, fresno-->
-    <div>
-      <img class="slider-img" src="assets/fresno.jpg" />
-    </div>
-
-    <!--STEP 9/11, bakersfield-->
-    <div>
-      <img class="slider-img" src="assets/bakersfield.jpg" />
-    </div>
-
-    <!--STEP 10/11, visalia-->
-    <div>
-      <img class="slider-img" src="assets/visalia.jpg" />
-    </div>
-
-    <!--STEP 11/11, losangeles-->
-    <div>
-      <img class="slider-img" src="assets/losangeles.jpg" />
-    </div>
-
-</div><!--END SLIDER-->
-
-</div><!--end column-->
-
-</div><!--end row-->
-</div><!--end container-->
- <script src="js/map.js"></script>
-
-
-    <div id="map-canvas"></div>
-      </div>
-
-      <div class="main">
-          <h2>Device Orientation</h2>
-          <table>
-            <tr>
-              <td>Event Supported</td>
-              <td id="doEvent"></td>
-            </tr>
-            <tr>
-              <td>Tilt Left/Right [gamma]</td>
-              <td id="doTiltLR"></td>
-            </tr>
-            <tr>
-              <td>Tilt Front/Back [beta]</td>
-              <td id="doTiltFB"></td>
-            </tr>
-            <tr>
-              <td>Direction [alpha]</td>
-              <td id="doDirection"></td>
-            </tr>
-          </table>
-      </div>
-
-<script type="text/javascript">
-  init();
-  var count = 0;
-  var html = "";
-  var can_tilt = true;
-
-  function init() {
-    if (window.DeviceOrientationEvent) {
-      document.getElementById("doEvent").innerHTML = "DeviceOrientation";
-      // Listen for the deviceorientation event and handle the raw data
-      window.addEventListener('deviceorientation', function(eventData) {
-        // gamma is the left-to-right tilt in degrees, where right is positive
-        var tiltLR = eventData.gamma;
-
-        // beta is the front-to-back tilt in degrees, where front is positive
-        var tiltFB = eventData.beta;
-
-        // alpha is the compass direction the device is facing in degrees
-        var dir = eventData.alpha
-
-        // call our orientation event handler
-        deviceOrientationHandler(tiltLR, tiltFB, dir);
-        }, false);
-
-    } else {
-      document.getElementById("doEvent").innerHTML = "Not supported on your device or browser.  Sorry."
-    }
-  }
-
-
-  function deviceOrientationHandler(tiltLR, tiltFB, dir) {
-    var gamma = Math.round(tiltLR);
-
-    if (gamma < 0){
-      gamma = Math.abs(gamma);
-    } else {
-      gamma = 180-gamma;
-    }
-
-  if (can_tilt){
-        if (gamma > 110){
-          //$('<p>tilt right</p>').appendTo('.main');
-          //$('#owl-slider').trigger('owl.next');
-          can_tilt = false;
-          setTimeout(function(){can_tilt = true;}, 1000);
-        } else if (gamma < 70){
-          //$('<p>tilt left</p>').appendTo('.main');
-          //$('#owl-slider').trigger('owl.prev');
-          can_tilt = false;
-          setTimeout(function(){can_tilt = true;}, 1000);
-        }
-  }
-
-  $(window).on("orientationchange",function(event){
-    alert("Orientation is: " + event.orientation);
-  });
-
-    document.getElementById("doTiltLR").innerHTML = Math.round(tiltLR);
-    document.getElementById("doTiltFB").innerHTML = Math.round(tiltFB);
-    document.getElementById("doDirection").innerHTML = Math.round(dir);
-
-    // Apply the transform to the image
-    // var logo = document.getElementById("imgLogo");
-    // logo.style.webkitTransform = "rotate("+ tiltLR +"deg) rotate3d(1,0,0, "+ (tiltFB*-1)+"deg)";
-    // logo.style.MozTransform = "rotate("+ tiltLR +"deg)";
-    // logo.style.transform = "rotate("+ tiltLR +"deg) rotate3d(1,0,0, "+ (tiltFB*-1)+"deg)";
-
-
-
-  }
-
-</script>
+<h2>This will only work in a browser that supports the Device Orientation api (e.g. mobile safari 4.3)</h2>
+<div id="div1">
+<img src="http://farm3.static.flickr.com/2426/4015908157_e41410225a.jpg" height="300">
+<img src="http://farm3.static.flickr.com/2310/2242617759_a1aea05ef8.jpg" height="300">
+<img src="http://farm3.static.flickr.com/2318/2263301554_3130ea03d1.jpg" height="300">
+<img src="http://farm4.static.flickr.com/3057/3035384114_7b742fbea3.jpg" height="300">
+<img src="http://farm1.static.flickr.com/193/464456310_ad5e053b69.jpg" height="300">
+<img src="http://farm3.static.flickr.com/2611/4122869632_d0aff0e1c9.jpg" height="300">
+<img src="http://farm4.static.flickr.com/3003/3046312494_43183b3363.jpg" height="300">
+</div>
+<h1>Tilt your device left and right to scroll images</h1>
+<div id="amt"></div>
+<a href="http://www.maxpigott.com">All images by Max Pigott</a>
 </body>
-
 </html>
