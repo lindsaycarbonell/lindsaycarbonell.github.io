@@ -1,6 +1,6 @@
 (function($) {
 	$.fn.tilt = function(params) {
-		if(window.orientation != 0){
+		//if(window.orientation != 0){
 		items = this;
 
 		params = $.extend( {sensitivity: 1}, params);
@@ -29,6 +29,6 @@
 				$(this).scrollLeft(scrollPos);
 			});
 		}
-	}
+	//}
 }
 })(jQuery);
