@@ -202,27 +202,31 @@
 
   if (can_tilt){
         if (gamma > 110){
-          $('<p>tilt right</p>').appendTo('.main');
-          $('#owl-slider').trigger('owl.next');
+          //$('<p>tilt right</p>').appendTo('.main');
+          //$('#owl-slider').trigger('owl.next');
           can_tilt = false;
           setTimeout(function(){can_tilt = true;}, 1000);
         } else if (gamma < 70){
-        $('<p>tilt left</p>').appendTo('.main');
-          $('#owl-slider').trigger('owl.prev');
+          //$('<p>tilt left</p>').appendTo('.main');
+          //$('#owl-slider').trigger('owl.prev');
           can_tilt = false;
           setTimeout(function(){can_tilt = true;}, 1000);
         }
   }
+
+  $(window).on("orientationchange",function(event){
+    alert("Orientation is: " + event.orientation);
+  });
 
     document.getElementById("doTiltLR").innerHTML = Math.round(tiltLR);
     document.getElementById("doTiltFB").innerHTML = Math.round(tiltFB);
     document.getElementById("doDirection").innerHTML = Math.round(dir);
 
     // Apply the transform to the image
-    var logo = document.getElementById("imgLogo");
-    logo.style.webkitTransform = "rotate("+ tiltLR +"deg) rotate3d(1,0,0, "+ (tiltFB*-1)+"deg)";
-    logo.style.MozTransform = "rotate("+ tiltLR +"deg)";
-    logo.style.transform = "rotate("+ tiltLR +"deg) rotate3d(1,0,0, "+ (tiltFB*-1)+"deg)";
+    // var logo = document.getElementById("imgLogo");
+    // logo.style.webkitTransform = "rotate("+ tiltLR +"deg) rotate3d(1,0,0, "+ (tiltFB*-1)+"deg)";
+    // logo.style.MozTransform = "rotate("+ tiltLR +"deg)";
+    // logo.style.transform = "rotate("+ tiltLR +"deg) rotate3d(1,0,0, "+ (tiltFB*-1)+"deg)";
 
 
 
