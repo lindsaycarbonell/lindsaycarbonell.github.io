@@ -43,6 +43,20 @@ svg {
   margin-left:0;
   left:auto;
 }
+p.graphic-src, p.graphic-credit{
+  font-size:7.5pt;
+  font-family:'Franklin Light';
+}
+p.graphic-src{
+  margin-bottom:0;
+}
+p.graphic-credit{
+  text-transform:uppercase;
+}
+.flex-row{
+  display:flex;
+  justify-content:space-between;
+}
 
 .tick text{
   font-family:'Franklin Light';
@@ -69,5 +83,5 @@ svg {
 p.graphic-descr{
   font-family:'Franklin Light';
   font-size:12pt;
-  line-height:12pt;
+  line-height:15pt;
 }
