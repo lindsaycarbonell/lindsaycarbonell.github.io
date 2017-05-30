@@ -13,10 +13,10 @@ svg {
   fill:#551A8B;
   /*stroke: white;*/
 }
-.delay:hover{
+/*.delay:hover{
   fill:red;
   opacity:1!important;
-}
+}*/
 #mapid{
   width:400px;
   height:400px;
