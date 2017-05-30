@@ -137,7 +137,7 @@
         <p>Jaden&rsquo;s school, OCS, had the most reported school bus breakdowns in the 2016-17 school year to May 21 out of the 28 schools in the area with reported school bus delays in the Institute's coverage area of central Harlem. If every morning and afternoon delay at just OCS were added together, the total would exceed 47 hours.</p>
 
         <h3 class="graphic-sub">School Bus Delays by School</h3>
-        <p class="graphic-descr">Below is a chart showing the school bus delays of 17 schools in the Institute's coverage area in central Harlem that experienced more than 10 or more delays between September 2015 and late May 2016. Each rectangle represents a single delay — the darker the color, the longer the delay was.</p>
+        <p class="graphic-descr">Below is a chart showing the school bus delays of 17 schools in the Institute's coverage area in central Harlem that experienced more than 10 or more delays between early September 2015 and late May 2017. Each rectangle represents a single delay — the darker the color, the longer the delay was.</p>
 
         <div class="graphic bar-chart"></div>
         <div class="flex-row">
@@ -534,7 +534,7 @@
           //draw the rects
             .attr('width', function(d){
               const width = xScale(parseInt(d.How_Long_Delayed));
-              console.log(parseInt(d.How_Long_Delayed));
+              // console.log(parseInt(d.How_Long_Delayed));
               return width;
             })
             .attr('height', yScale.bandwidth() * 0.5)
@@ -591,7 +591,24 @@
         })
 
 
-        
+        var w = 140, h = 400;
+
+  			var key = d3.select("body").append("svg").attr("width", w).attr("height", h);
+
+  			var legend = key.append("defs").append("svg:linearGradient").attr("id", "gradient").attr("x1", "100%").attr("y1", "0%").attr("x2", "100%").attr("y2", "100%").attr("spreadMethod", "pad");
+
+  			legend.append("stop").attr("offset", "0%").attr("stop-color", "#B30000").attr("stop-opacity", 1);
+
+  			legend.append("stop").attr("offset", "100%").attr("stop-color", "#FEE8c8").attr("stop-opacity", 1);
+
+  			key.append("rect").attr("width", w - 100).attr("height", h - 100).style("fill", "url(#gradient)").attr("transform", "translate(0,10)");
+
+  			var y = d3.scaleLinear().range([300, 0]).domain([1, 100]);
+
+  			// var yAxis = d3.svg.axis().scale(y).orient("right");
+
+  			key.append("g").attr("class", "y axis").attr("transform", "translate(41,10)").call(yAxis).append("text").attr("transform", "rotate(-90)").attr("y", 30).attr("dy", ".71em").style("text-anchor", "end").text("axis title");
+
 
       }; //init
 
