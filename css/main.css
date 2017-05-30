@@ -1,0 +1,73 @@
+@font-face{
+  font-family:'Franklin Bold';
+  src:url('../assets/fonts/NYTFranklinBold.otf');
+}
+@font-face{
+  font-family:'Franklin Light';
+  src:url('../assets/fonts/NYTFranklinLight.otf');
+}
+svg {
+  border: 1px solid black;
+}
+.delay{
+  fill:#551A8B;
+  /*stroke: white;*/
+}
+.delay:hover{
+  fill:red;
+  opacity:1!important;
+}
+#mapid{
+  width:400px;
+  height:400px;
+}
+.mapCircle{
+  /*stroke:none;*/
+}
+.mapCircle:hover{
+  /*fill:blue;*/
+}
+.schoolLabel, .leaflet-tooltip, .schoolLabel text{
+  font-family:'Franklin Bold'!important;
+  font-size:9pt!important;
+  line-height:11pt;
+  background-color:transparent;
+  border:none;
+  box-shadow:none;
+}
+.schoolLabel text{
+  font-size:8pt!important;
+}
+.schoolLabel::before{
+  border-right-color:transparent;
+  margin-left:0;
+  left:auto;
+}
+
+.tick text{
+  font-family:'Franklin Light';
+  font-size:8pt;
+}
+
+.axis.x .tick line {
+  opacity: 0.1;
+}
+
+.axis.y .tick line {
+  stroke: none;
+}
+
+.graphic-sub, p.graphic-descr{
+  line-height: 10pt;
+}
+
+.graphic-sub{
+  font-family:'Franklin Bold';
+  font-size:16pt;
+}
+
+p.graphic-descr{
+  font-family:'Franklin Light';
+  font-size:12pt;
+  line-height:12pt;
+}
