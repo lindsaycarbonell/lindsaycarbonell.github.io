@@ -85,3 +85,9 @@ p.graphic-descr{
   font-size:12pt;
   line-height:15pt;
 }
+
+div.map-wrapper{
+  float:left;
+  margin-right:30px;
+  width:400px;
+}
