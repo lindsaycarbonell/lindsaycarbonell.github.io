@@ -36,7 +36,7 @@ p.map-caption{
 .mapCircle:hover{
   /*fill:blue;*/
 }
-.schoolLabel, .leaflet-tooltip, .schoolLabel text{
+.schoolLabel, .leaflet-tooltip, .schoolLabel text, .legendTitle{
   font-family:'Franklin Bold'!important;
   font-size:9pt!important;
   line-height:11pt;

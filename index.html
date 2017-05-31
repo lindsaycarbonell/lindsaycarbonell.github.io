@@ -144,11 +144,11 @@
 
 <p>Opportunity Charter School, which has grades sixth through 12th, had 132 reported bus delays, nearly twice as many as the next highest school, P.S. 241, which had 79 delays, in that nearly 20-month period.</p>
 
-<h3 class="graphic-sub">Schools with the Most Bus Delays</h3>
-<!-- <p class="graphic-descr">Below is a chart showing the school bus delays of 17 schools in the Institute's coverage area in central Harlem that experienced more than 10 or more delays between September 2015 and late May 2016. Each rectangle represents a single delay — the darker the color, the longer the delay was.</p> -->
+<h3 class="graphic-sub">Schools With the Most Bus Delays</h3>
+<p class="graphic-descr">When a bus is late to school, the Office of Pupil Transportation records that delay in its database. Each block represents one delay recorded between Sept. 2, 2015, and May 21, 2017.</p>
 <div class="graphic bar-chart"></div>
 <div class="flex-row">
-  <p class="graphic-src">Source: New York Department of Transportation, New York Department of Education</p>
+  <p class="graphic-src">Source: New York Department of Education</p>
   <p class="graphic-credit">CREDIT: LINDSAY CARBONELL</p>
 </div>
 
@@ -487,9 +487,9 @@
         //   .range([ 0, conventions.width ]);
 
         xAxis
-          .tickValues([10, 20, 30, 40, 50, 60, 70].map(d => d * 60))
+          .tickValues([10, 20, 30, 40].map(d => d * 60))
           .tickFormat(function(d) {
-            return `${Math.floor(d/60)}`;
+            return `${Math.floor(d/60)}` + ' hours';
           })
           .tickSize(-height);
 
@@ -518,6 +518,15 @@
 
         const legendG = svg.append('g');
 
+        legendG.append('text.legendTitle')
+          .attr('width', legendWidth)
+          .attr('height', 200)
+          .attr('text-anchor', 'middle')
+          .attr('y', -30)
+          .attr('x', 100)
+          .text('Individual Delay');
+
+
         var legendBoxes = legendG.appendMany([0,20,40,60], 'g.legendBoxes')
         .translate(function(d){
           return [legendXScale(d),0];
@@ -530,6 +539,8 @@
           .attr('opacity', function(d){
             return opacityColorScale(d);
           });
+
+
 
         legendBoxes
           .append('text')
@@ -567,11 +578,7 @@
         // debugger
         legendG.translate([ conventions.width - legendWidth, conventions.height - legendHeight ])
 
-        // legendG.append('rect')
-        //   .attr('width', legendWidth)
-        //   .attr('height', 200)
-        //   .attr('fill', 'none')
-        //   .attr('stroke', 'black');
+
 
 
 
@@ -663,7 +670,7 @@
         d3.select('.x.axis .domain').remove();
 
         d3.select('.x.axis .tick text').text(function(d) {
-          return `${d/100} hours of delay`;
+          return `${d/100} total hours of delay`;
         })
 
         d3.select('.x.axis').translate([0, 0])
