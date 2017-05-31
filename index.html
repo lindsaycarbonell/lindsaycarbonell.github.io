@@ -356,7 +356,7 @@
 
           if (parseInt(d.num_of_incidents) >= 10){
             var thisCircle = L.circle([parseFloat(d.Latitude), parseFloat(d.Longitude)], {
-              color: 'red',
+              color: '#555',
               fillColor: 'transparent',
               radius: 3,
               className: 'mapCircle ' + d.Name
@@ -364,7 +364,7 @@
             thisCircle.addTo(mymap);
 
             if(d.Name.includes("Opportunity")){
-              thisCircle.setStyle({color:'blue', radius: 4, weight:5});
+              thisCircle.setStyle({color:'red', radius: 4, weight:5});
               thisCircle.bindTooltip(d.Name, {permanent: true, className: "schoolLabel", offset: [-8, 10] });
               thisCircle._id = "1";
             }
