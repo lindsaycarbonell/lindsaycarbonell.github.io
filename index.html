@@ -417,11 +417,15 @@
           return parseInt(d.How_Long_Delayed);
         })
 
-        const nested = d3.nest()
+        const _nested = d3.nest()
           .key(function(d){
             return d.Name;
           })
           .entries(data);
+
+        const nested = [_nested[0]]
+          // .concat({ key: 'fake', values: [{ How_Long_Delayed: 60 * 40 }] })
+          .concat(_nested.slice(1, 100));
 
         nested.sort(function(a, b){
           const a_total = d3.sum(a.values, function(d){
@@ -430,7 +434,8 @@
           const b_total = d3.sum(b.values, function(d){
             return d.How_Long_Delayed;
           })
-          return d3.descending(a_total, b_total);
+          // return d3.descending(a_total, b_total);
+          return d3.ascending(a_total, b_total);
         })
 
         const school_names = nested.map(function(d){
@@ -475,7 +480,7 @@
           x: xScale,
           // width: width,
           height: height,
-          margin: {left: 20},
+          margin: {left: 20, top: 30, bottom: 40 },
           parentSel: parentSel
         });
 
@@ -487,6 +492,7 @@
         //   .range([ 0, conventions.width ]);
 
         xAxis
+          .tickPadding(10)
           .tickValues([10, 20, 30, 40].map(d => d * 60))
           .tickFormat(function(d) {
             return `${Math.floor(d/60)}` + ' hours';
@@ -509,10 +515,17 @@
 
         const svg = conventions.svg;
 
-        const legendWidth = 200;
+        const legendWidth = 10;
         // const legendHeight = (yScale.bandwidth() * RECT_HEIGHT_RATIO) + 20;
-        const legendHeight = 26;
+        // const legendHeight = 26;
+
+        const legendHeight = 100;
+
         const legendXScale = d3.scaleBand().domain([0,20,40,60]).range([0,legendWidth]);
+
+        const legendYScale = d3.scaleBand().domain([0, 1, 2, 3])
+          .range([0,legendHeight])
+          .padding(0.5)
 
 
 
@@ -521,26 +534,36 @@
         legendG.append('text.legendTitle')
           .attr('width', legendWidth)
           .attr('height', 200)
-          .attr('text-anchor', 'middle')
-          .attr('y', -30)
-          .attr('x', 100)
-          .text('Individual Delay');
+          .attr('text-anchor', 'end')
+          // .attr('text-anchor', 'middle')
+          // .attr('y', -30)
+          .attr('x', 10)
+          .text('Minutes Delayed Per Incident');
+
+        legendG.translate([ conventions.width - legendWidth, 15 ])
+        
 
 
-        var legendBoxes = legendG.appendMany([0,20,40,60], 'g.legendBoxes')
-        .translate(function(d){
-          return [legendXScale(d),0];
-        });
+        var legendBoxes = legendG.appendMany([ 10, 30, 50, 70 ], 'g.legendBoxes')
+          .translate(function(d, i) {
+            return [ 0, legendYScale(i) ]
+          })
+        // .translate(function(d){
+        //   return [legendXScale(d),0];
+        // });
 
         legendBoxes
           .append('rect')
-          .attr('width', legendXScale.bandwidth())
-          .attr('height', yScale.bandwidth() * RECT_HEIGHT_RATIO)
-          .attr('opacity', function(d){
+          // .attr('width', function(d) { return xScale(d) })
+          .attr('width', legendYScale.bandwidth())
+          .attr('height', legendYScale.bandwidth())
+          // .style('stroke', 'black')
+          // .style('stroke-opacity', 0.7)
+          // .attr('width', legendXScale.bandwidth())
+          // .attr('height', yScale.bandwidth() * RECT_HEIGHT_RATIO)
+          .attr('fill-opacity', function(d){
             return opacityColorScale(d);
           });
-
-
 
         legendBoxes
           .append('text')
@@ -548,45 +571,80 @@
             // if(d === 0){
             //   return '0';
             // } else
-            if (d === 20){
-              return '20 minutes';
-            } else if (d === 40){
-              return '40';
-            } else if (d === 60){
-              return '60';
+            if (d < 20){
+              return 'Less than 20 minutes';
+            } else if (d > 20 && d < 40){
+              return '20 to 40';
+            } else if (d > 40 && d < 60){
+              return '40 to 60';
+            } else {
+              return 'More than 60'
             }
           })
-          .attr('text-anchor', 'middle')
-          .attr('y', -10);
+          .attr('text-anchor', 'end')
+          .attr('y', 10)
+          .attr('x', -5)
 
-          legendBoxes
-            .filter(function(d,i) { return i !== 0; })
-            .append('line')
-            .attr('stroke', 'black')
-            .attr('y2', -5);
+        // legendG.remove()
+
+        // debugger
+
+        // const _60_min_callout = svg.append('g.callout_60')
 
 
-        const legendAxis = d3.axisTop()
-          .scale(legendXScale);
+        // legendBoxes
+        //   .append('text')
+        //   .text(function(d){
+        //     // if(d === 0){
+        //     //   return '0';
+        //     // } else
+        //     if (d === 20){
+        //       return '20 minutes';
+        //     } else if (d === 40){
+        //       return '40';
+        //     } else if (d === 60){
+        //       return '60';
+        //     }
+        //   })
+        //   .attr('text-anchor', 'middle')
+        //   .attr('y', -10);
 
-        // legendG.call(legendAxis);
+          // legendBoxes
+          //   .filter(function(d,i) { return i !== 0; })
+          //   .append('line')
+          //   .attr('stroke', 'black')
+          //   .attr('y2', -5);
 
-        legendG.selectAll('.tick').remove();
+
+        // const legendAxis = d3.axisTop()
+        //   .scale(legendXScale);
+
+        // // legendG.call(legendAxis);
+
+        // legendG.selectAll('.tick').remove();
 
 
         // 674
         // debugger
-        legendG.translate([ conventions.width - legendWidth, conventions.height - legendHeight ])
+        // legendG.translate([ conventions.width - legendWidth, conventions.height - legendHeight ])
 
 
-
+        // const withFake = [nested[0]]
+        //   .concat({
+        //     key: 'fake',
+        //     values: []
+        //   })
+        //   .concat(nested)
 
 
         // debugger
 
         const schools = conventions.svg
           .append('g.schools')
-          .appendMany(nested, 'g.school');
+          .appendMany(nested, 'g.school')
+          .classed('opportunity', function(d) {
+            return d.key === "Opportunity Charter";
+          })
 
         schools.translate(function(d){
           const y = yScale(d.key);
@@ -625,7 +683,7 @@
           const delayGs = d3.select(this).appendMany(filtered, 'g.delay');
 
           delayGs.append('line.delay')
-            .attr('y2', yScale.bandwidth())
+            .attr('y2', yScale.bandwidth() * RECT_HEIGHT_RATIO)
             .style('stroke', 'white')
 
           delayGs
@@ -657,6 +715,9 @@
 
 
         });
+
+        d3.select('.school.opportunity').append('g.pointer')
+
 
         // delayGs.append('text')
         // .text(function(d){
