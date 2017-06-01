@@ -480,7 +480,7 @@
           x: xScale,
           // width: width,
           height: height,
-          margin: {left: 20, top: 40, bottom: 40 },
+          margin: {left: 20, top: 60, bottom: 40 },
           parentSel: parentSel
         });
 
@@ -543,7 +543,7 @@
           .text('Minutes Delayed Per Incident');
 
         legendG.translate([ conventions.width - legendWidth, conventions.height - legendHeight ])
-        
+
 
 
         var legendBoxes = legendG.appendMany([ 10, 30, 50, 70 ], 'g.legendBoxes')
@@ -734,7 +734,7 @@
         d3.select('.x.axis .domain').remove();
 
         d3.select('.x.axis .tick text').text(function(d) {
-          return `${d/100} total hours of delay`;
+          return `${d/60} total hours of delay`;
         })
 
         d3.select('.x.axis').translate([0, conventions.height])
@@ -753,7 +753,60 @@
         })
 
 
-        d3.select('g.schools').translate([0, -14])
+        function drawAnnotes(sectionWidth, offset){
+
+          d3.select('g.schools').translate([0, -14]);
+
+          const annoteLeft = svg.append('g.annote-left')
+
+            annoteLeft.translate([xScale(offset), 0]);
+
+            annoteLeft.append('line')
+              .attr('x2', xScale(sectionWidth))
+              .attr('y1', -5)
+              .attr('y2', -5)
+              .attr('stroke', 'black');
+
+            annoteLeft.append('line')
+              .attr('x1', xScale(sectionWidth)/2)
+              .attr('x2', xScale(sectionWidth)/2)
+              .attr('y1', -5)
+              .attr('y2', -10)
+              .attr('stroke', 'black');
+        }
+
+        drawAnnotes(120, 0);
+
+        drawAnnotes(1630, 824);
+
+        const annoteText = svg.append('g.annote-text');
+
+        annoteText
+          .append('text')
+          .attr('class', 'annote-left-text')
+          .text('lasted 120 minutes.')
+          .translate([0, -18]);
+
+        annoteText
+          .append('text')
+          .attr('class', 'annote-left-text')
+          .text('This single delay')
+          .translate([0, -30]);
+
+        annoteText
+          .append('text')
+          .attr('class', 'annote-left-text')
+          .text('to more than 27 hours.')
+          .translate([300, -18]);
+
+        annoteText
+          .append('text')
+          .attr('class', 'annote-left-text')
+          .text('These 68 delays added up')
+          .translate([300, -30]);
+
+
+
 
 
 
