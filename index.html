@@ -485,7 +485,7 @@
         });
 
 
-        xScale.rangeRound([0, conventions.width])
+        xScale.range([0, conventions.width])
 
         // const timeScale = d3.scaleTime()
         //   .domain([ 0, max_minutes * 60 * 1000 ])
@@ -689,6 +689,8 @@
             .attr('y2', yScale.bandwidth() * RECT_HEIGHT_RATIO)
             .style('stroke', 'white')
 
+          let total_time = 0;
+
           delayGs
             .append('rect.delay')
           //draw the rects
@@ -708,7 +710,10 @@
             .each(function(d) {
               const current_width = total_width;
               //total_width += xScale(parseInt(d.How_Long_Delayed))
-              total_width += parseInt(d3.select(this).attr('width'));
+              total_width += xScale(parseInt(d.How_Long_Delayed))
+              total_time += d.How_Long_Delayed;
+
+              d3.select(this).attr('data-time', total_time);
 
               d3.select(this.parentElement).translate([current_width, 0]);
               // console.log(current_width);
